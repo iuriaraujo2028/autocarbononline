@@ -72,9 +72,62 @@ body {
 .parcela-destaque { font-size: 24px; color: var(--price-green); }
 
 /* Responsividade Básica */
+/* ==========================================
+   RESPONSIVIDADE (CELULARES E TABLETS)
+   ========================================== */
 @media (max-width: 768px) {
-    .topbar { flex-direction: column; text-align: center; gap: 15px; padding: 15px; }
-    .catalog-container { padding: 20px; }
+    /* 1. Cabeçalho e Logo */
+    .topbar { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 15px; 
+        gap: 20px;
+    }
+    
+    .logo img {
+        height: auto; /* Deixa a altura automática para não distorcer */
+        max-height: 60px; /* Limita o tamanho no celular */
+        max-width: 100%; /* Impede que a logo vaze para fora da tela */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .nav-links .whatsapp {
+        justify-content: center; /* Centraliza o ícone com o texto */
+    }
+
+    /* 2. Seção de Filtros */
+    .filter-section {
+        padding: 20px 15px; /* Reduz as margens laterais gigantes no celular */
+    }
+
+    .filter-section h2 {
+        font-size: 20px; /* Reduz um pouco a fonte do título para não quebrar feio */
+    }
+
+    .filtros-container { 
+        flex-direction: column; 
+        width: 100%;
+    }
+
+    .preco-filtros { 
+        flex-direction: column; 
+        width: 100%; 
+    }
+
+    .filtros-container input, .filtros-container select, #btn-limpar-filtros {
+        width: 100%; /* Faz os botões e campos ocuparem de ponta a ponta */
+        min-width: unset;
+    }
+
+    /* 3. Vitrine */
+    .catalog-container { 
+        padding: 20px 15px; 
+    }
 }
 
 /* --- ESTILOS DOS FILTROS --- */
