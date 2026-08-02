@@ -1,627 +1,97 @@
 <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <title>Catálogo - AutoCarbon Multimarcas</title>
-        <style>
-            @page {
-                size: A4;
-                margin: 10mm 15mm;
-                background-color: #f3f4f6;
-            }
-            
-            @page :first {
-                margin: 0;
-                background-color: #111;
-            }
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Carbon Multimarcas - Catálogo Automático</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-            * {
-                box-sizing: border-box;
-                font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            }
-            body { margin: 0; padding: 0; color: #111827; }
-            
-            .cover-page {
-                width: 100%;
-                height: 296mm;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: #111;
-                text-align: center;
-                page-break-after: always;
-            }
-            
-            .logo-cover { max-width: 80%; max-height: 300px; margin-bottom: 40px; }
-            .logo-text { color: #e5c158; font-size: 36pt; letter-spacing: 2px; margin-bottom: 40px; }
-            .contact-cover { color: #fff; font-size: 16pt; line-height: 1.8; }
-            .contact-cover b { color: #e5c158; font-size: 22pt; }
-            
-            .btn-whatsapp {
-                display: inline-block; background-color: #25D366; color: #ffffff !important;
-                text-decoration: none; padding: 12px 30px; border-radius: 30px;
-                font-weight: bold; font-size: 16pt; margin-top: 20px;
-                letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            }
+    <!-- 1. CABEÇALHO -->
+    <header class="topbar">
+        <div class="logo">
+            <img src="img/logomarca.png" alt="Auto Carbon Multimarcas">
+        </div>
+        <nav class="nav-links">
+            <a href="https://wa.me/5565999494847" class="whatsapp">
+                <img src="img/icon/whatsapp.svg" alt="WhatsApp">
+                (65) 99949-4847 WhatsApp
+            </a>
+            <a href="#">Administração (ERP)</a>
+        </nav>
+    </header>
 
-            .container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; width: 100%; padding-top: 10px; }
-            .card { width: 48%; background-color: #fff; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; font-size: 12pt; page-break-inside: avoid; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); overflow: hidden; }
-            .card-img { width: 100%; height: 230px; background-color: #ededed; text-align: center; border-bottom: 1px solid #e5e7eb; }
-            .card-img img { width: 100%; height: 100%; object-fit: cover; }
-            .card-body { padding: 16px; }
-            .card-title { font-size: 14pt; font-weight: 700; color: #111827; margin-bottom: 8px; min-height: 42px; line-height: 1.25; }
-            .card-details { font-size: 11.5pt; color: #6b7280; margin-bottom: 12px; font-weight: 500; }
-            .card-price { font-size: 18pt; font-weight: 800; color: #16a34a; margin-bottom: 15px; }
-            .btn-link { display: block; text-align: center; background-color: #111; color: #e5c158; text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 14pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
-            .footer { text-align: center; margin-top: 20px; font-size: 10pt; color: #6b7280; border-top: 1px solid #d1d5db; padding-top: 12px; width: 100%; }
-        </style>
-    </head>
-    <body>
-        <div class="cover-page">
-            <img src="logomarca.png" class="logo-cover" alt="AutoCarbon Multimarcas">
-            <div class="contact-cover">
-                <b>Equipe de Vendas</b><br>
-                <a href="https://wa.me/5565999494847" class="btn-whatsapp">WhatsApp: (65) 99949-4847</a>
-            </div>
-        </div>
-        <div class="container">
-    
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/01/1317771-m.jpg?11052026144041"></div>
-            <div class="card-body">
-                <div class="card-title">BMW F 850 GS Adventure Sport</div>
-                <div class="card-details">Ano: 2019/2020 • 58.830 KM</div>
-                <div class="card-price">R$ 54.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEDKLMH&veiculo=bmw-f-850-gs-adventure-sport" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
+    <!-- 2. SEÇÃO DE FILTROS -->
+    <section class="filter-section">
+        <h2>USE NOSSO FILTRO DINÂMICO E ENCONTRE SEU VEÍCULO IDEAL</h2>
         
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1348784-m.jpg?10052026132708"></div>
-            <div class="card-body">
-                <div class="card-title">BMW X1 Sdrive 20i M Sport 2.0 Turbo AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2024/2024 • 20.058 KM</div>
-                <div class="card-price">R$ 315.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGLLNK&veiculo=bmw-x1-sdrive-20i-m-sport-2.0-turbo-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
+        <div class="filtros-container">
+            <input type="text" id="filtro-nome" placeholder="Buscar por modelo ou versão...">
+
+            <select id="filtro-marca">
+                <option value="">Todas as Marcas</option>
+            </select>
+
+            <select id="filtro-ano">
+                <option value="">Qualquer Ano</option>
+            </select>
+
+            <div class="preco-filtros">
+                <input type="number" id="filtro-preco-min" placeholder="Preço Mínimo (R$)">
+                <input type="number" id="filtro-preco-max" placeholder="Preço Máximo (R$)">
+            </div>
+
+            <button id="btn-limpar-filtros">Limpar</button>
+        </div>
+    </section>
+
+    <!-- 3. VITRINE DE CARROS (Se essa tag sumir, os carros não carregam) -->
+    <main class="catalog-container" id="vitrine-carros">
+        <p style="text-align:center; width:100%; grid-column: 1 / -1;">Carregando estoque atualizado...</p>
+    </main>
+
+    <!-- 4. PAINEL LATERAL DO SIMULADOR (Inicia Oculto) -->
+    <div id="overlay-simulador" class="overlay"></div>
+    <aside id="sidebar-simulador" class="sidebar">
+        <button id="fechar-simulador" class="btn-fechar">✖</button>
+        <div class="simulador-section">
+            <h3>Simular Financiamento</h3>
+            <p id="veiculo-selecionado-nome" class="destaque-veiculo"></p>
+
+            <div class="form-group">
+                <label>Valor do Veículo (R$)</label>
+                <input type="number" id="valor-veiculo" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Valor da Entrada (R$)</label>
+                <input type="number" id="valor-entrada" placeholder="Ex: 20000">
+            </div>
+
+            <div class="form-group">
+                <label>Prazo de Pagamento</label>
+                <select id="prazo-meses">
+                    <option value="12">12x</option>
+                    <option value="24">24x</option>
+                    <option value="36">36x</option>
+                    <option value="48" selected>48x</option>
+                    <option value="60">60x</option>
+                </select>
+            </div>
+
+            <input type="hidden" id="taxa-juros" value="1.5"> 
+            
+            <button id="btn-calcular" class="btn-acessar w-100">Calcular Parcela</button>
+            
+            <div id="resultado-simulacao" class="resultado-box">
+                <p>Valor Financiado: <br><strong id="res-financiado"></strong></p>
+                <p class="mt-1">Parcelas: <br><strong id="res-parcelas" class="parcela-destaque"></strong></p>
+                <button id="btn-whatsapp" class="btn-whatsapp w-100 mt-1">Enviar Proposta pelo WhatsApp</button>
             </div>
         </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1372846-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">BMW X1 Sdrive 20i X-Line 2.0 Turbo AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2025/2025 • 17.000 KM</div>
-                <div class="card-price">R$ 299.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJFMJM&veiculo=bmw-x1-sdrive-20i-x-line-2.0-turbo-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2025/11/1302964-m.jpg?15072026173220"></div>
-            <div class="card-body">
-                <div class="card-title">BMW X3 M40i 3.0 Turbo V6 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2018/2018 • 85.000 KM</div>
-                <div class="card-price">R$ 219.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BECFNLK&veiculo=bmw-x3-m40i-3.0-turbo-v6-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1371409-m.jpg?29072026120404"></div>
-            <div class="card-body">
-                <div class="card-title">CBR 1100 XX Super Blackbird</div>
-                <div class="card-details">Ano: 1998/1998 • 18.000 KM</div>
-                <div class="card-price">R$ 30.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJEIFP&veiculo=cbr-1100-xx-super-blackbird" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353507-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Civic Sedan Sport 2.0 MecÃ¢nico Flex</div>
-                <div class="card-details">Ano: 2016/2017 • 129.055 KM</div>
-                <div class="card-price">R$ 90.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJFN&veiculo=civic-sedan-sport-2.0-mecanico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1362358-m.jpg?24072026112702"></div>
-            <div class="card-body">
-                <div class="card-title">Commander Overland T270 1.3 Turbo AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2022/2023 • 42.633 KM</div>
-                <div class="card-price">R$ 159.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIFHKO&veiculo=commander-overland-t270-1.3-turbo-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1362362-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Compass Longitude 2.0 4X4 AutomÃ¡tico Diesel</div>
-                <div class="card-details">Ano: 2019/2019 • 111.783 KM</div>
-                <div class="card-price">R$ 107.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIFHLI&veiculo=compass-longitude-2.0-4x4-automatico-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1361380-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Compass Longitude T270 1.3 Turbo 4x2 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2023/2023 • 35.136 KM</div>
-                <div class="card-price">R$ 139.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIEHNG&veiculo=compass-longitude-t270-1.3-turbo-4x2-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1357005-m.jpg?24072026182841"></div>
-            <div class="card-body">
-                <div class="card-title">Compass Longitude T270 1.3 Turbo 4x2 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2024/2024 • 91.934 KM</div>
-                <div class="card-price">R$ 129.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHKEFL&veiculo=compass-longitude-t270-1.3-turbo-4x2-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369349-m.jpg?21072026202620"></div>
-            <div class="card-body">
-                <div class="card-title">Compass Longitude T270 1.3 Turbo 4x2 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2025/2025 • 5.200 KM</div>
-                <div class="card-price">R$ 148.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMHJP&veiculo=compass-longitude-t270-1.3-turbo-4x2-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2025/11/1306759-m.jpg?22022026114925"></div>
-            <div class="card-body">
-                <div class="card-title">COOPER PACEMAN S 1.6 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2014/2015 • 75.930 KM</div>
-                <div class="card-price">R$ 104.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BECJLKP&veiculo=cooper-paceman-s-1.6-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353508-m.jpg?24072026185315"></div>
-            <div class="card-body">
-                <div class="card-title">Corolla XEI 2.0 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2023/2024 • 41.061 KM</div>
-                <div class="card-price">R$ 144.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJFO&veiculo=corolla-xei-2.0-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1365515-m.jpg?24072026185231"></div>
-            <div class="card-body">
-                <div class="card-title">Corolla XEI 2.0 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2023/2024 • 49.084 KM</div>
-                <div class="card-price">R$ 141.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIIJGL&veiculo=corolla-xei-2.0-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1371728-m.jpg?29072026094802"></div>
-            <div class="card-body">
-                <div class="card-title">Corolla XEI 2.0 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2015/2016 • 115.826 KM</div>
-                <div class="card-price">R$ 89.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJELHO&veiculo=corolla-xei-2.0-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/04/1346698-m.jpg?29072026120406"></div>
-            <div class="card-body">
-                <div class="card-title">Creta Limited 1.0 Turbo AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2022/2023 • 60.563 KM</div>
-                <div class="card-price">R$ 112.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGJKOO&veiculo=creta-limited-1.0-turbo-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354774-m.jpg?29072026115957"></div>
-            <div class="card-body">
-                <div class="card-title">Cronos 1.0 Flex</div>
-                <div class="card-details">Ano: 2022/2023 • 56.000 KM</div>
-                <div class="card-price">R$ 66.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHLMK&veiculo=cronos-1.0-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1361373-m.jpg?22062026153402"></div>
-            <div class="card-body">
-                <div class="card-title">DIAVEL 1260 S</div>
-                <div class="card-details">Ano: 2021/2021 • 2.531 KM</div>
-                <div class="card-price">R$ 89.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIEHMJ&veiculo=diavel-1260-s" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2025/11/1303821-m.jpg?19112025144514"></div>
-            <div class="card-body">
-                <div class="card-title">Discovery HSE 3.0 V6 4x4 TD6 AutomÃ¡tico Diesel</div>
-                <div class="card-details">Ano: 2019/2020 • 110.000 KM</div>
-                <div class="card-price">R$ 299.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BECGMHH&veiculo=discovery-hse-3.0-v6-4x4-td6-automatico-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369923-m.jpg?22072026"></div>
-            <div class="card-body">
-                <div class="card-title">Ducato Chassi Diesel</div>
-                <div class="card-details">Ano: 2021/2021 • 113.291 KM</div>
-                <div class="card-price">R$ 220.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMNHJ&veiculo=ducato-chassi-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353525-m.jpg?27052026103545"></div>
-            <div class="card-body">
-                <div class="card-title">Eclipse Cross HPE-S Sport 1.5 AWC AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2022/2023 • 77.339 KM</div>
-                <div class="card-price">R$ 148.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJHL&veiculo=eclipse-cross-hpe-s-sport-1.5-awc-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354783-m.jpg?03062026123338"></div>
-            <div class="card-body">
-                <div class="card-title">F 900 GS Plus</div>
-                <div class="card-details">Ano: 2024/2025 • 13.000 KM</div>
-                <div class="card-price">R$ 69.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHLNJ&veiculo=f-900-gs-plus" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1366800-m.jpg?11072026211940"></div>
-            <div class="card-body">
-                <div class="card-title">F-150 Lariat 4x4 5.0 V8</div>
-                <div class="card-details">Ano: 2024/2024 • 31.660 KM</div>
-                <div class="card-price">R$ 450.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIJMFG&veiculo=f-150-lariat-4x4-5.0-v8" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1366555-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Gol Trendline 1.6 4P Total Flex</div>
-                <div class="card-details">Ano: 2017/2018 • 144.000 KM</div>
-                <div class="card-price">R$ 44.990,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIJJKL&veiculo=gol-trendline-1.6-4p-total-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369355-m.jpg?20072026"></div>
-            <div class="card-body">
-                <div class="card-title">harley davidson XL 883 R</div>
-                <div class="card-details">Ano: 2007/2007 • 31.837 KM</div>
-                <div class="card-price">R$ 36.990,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMHKL&veiculo=harley-davidson-xl-883-r" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1358397-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Haval H6 GT PHEV AWD HÃ­brido</div>
-                <div class="card-details">Ano: 2023/2024 • 91.000 KM</div>
-                <div class="card-price">R$ 219.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHLHON&veiculo=haval-h6-gt-phev-awd-hibrido" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2025/10/1299115-m.jpg?26062026144846"></div>
-            <div class="card-body">
-                <div class="card-title">Hilux SRX CD 2.8 4x4 TDI AutomÃ¡tico Diesel</div>
-                <div class="card-details">2016/2017</div>
-                <div class="card-price">R$ 174.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BDLMFGL&veiculo=hilux-srx-cd-2.8-4x4-tdi-automatico-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354509-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">HRV EX 1.8 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2017/2018 • 101.004 KM</div>
-                <div class="card-price">R$ 94.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHJFP&veiculo=hrv-ex-1.8-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1361384-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Kicks Advance 1.6 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2021/2022 • 105.185 KM</div>
-                <div class="card-price">R$ 89.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIEHNK&veiculo=kicks-advance-1.6-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1358712-m.jpg?17062026161743"></div>
-            <div class="card-body">
-                <div class="card-title">Nivus Highline 200 TSI AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2021/2021 • 58.832 KM</div>
-                <div class="card-price">R$ 110.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHLLGI&veiculo=nivus-highline-200-tsi-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353516-m.jpg?29052026102350"></div>
-            <div class="card-body">
-                <div class="card-title">Nivus Highline 200 TSI AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2023/2024 • 87.395 KM</div>
-                <div class="card-price">R$ 119.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJGM&veiculo=nivus-highline-200-tsi-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1370341-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Onix Hatch LT 1.0 MecÃ¢nico Flex</div>
-                <div class="card-details">Ano: 2017/2018 • 103.220 KM</div>
-                <div class="card-price">R$ 53.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJDHJH&veiculo=onix-hatch-lt-1.0-mecanico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1347553-m.jpg?01072026164610"></div>
-            <div class="card-body">
-                <div class="card-title">Onix Hatch LTZ 1.0 Turbo AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2020/2020 • 81.992 KM</div>
-                <div class="card-price">R$ 75.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGKJKJ&veiculo=onix-hatch-ltz-1.0-turbo-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/06/1358448-m.jpg?12062026145224"></div>
-            <div class="card-body">
-                <div class="card-title">Onix Sedan Plus LTZ 1.0 Turbo AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2023/2024 • 60.000 KM</div>
-                <div class="card-price">R$ 85.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHLIJO&veiculo=onix-sedan-plus-ltz-1.0-turbo-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1365572-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Polo Comfortline 1.0 TSI AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2024/2024 • 53.449 KM</div>
-                <div class="card-price">R$ 92.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIIJMI&veiculo=polo-comfortline-1.0-tsi-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369361-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Prisma Sedan LTZ 1.4 FlexPower</div>
-                <div class="card-details">Ano: 2015/2015 • 124.333 KM</div>
-                <div class="card-price">R$ 53.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMHLH&veiculo=prisma-sedan-ltz-1.4-flexpower" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353532-m.jpg?23052026"></div>
-            <div class="card-body">
-                <div class="card-title">Ram 1500 Rebel Hemi CD 5.7 V8 4x4 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2022/2022 • 82.311 KM</div>
-                <div class="card-price">R$ 319.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJII&veiculo=ram-1500-rebel-hemi-cd-5.7-v8-4x4-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/04/1340087-m.jpg?08062026"></div>
-            <div class="card-body">
-                <div class="card-title">Ram 1500 Rebel Hemi CD 5.7 V8 4x4 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2022/2022 • 40.000 KM</div>
-                <div class="card-price">R$ 319.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGDENN&veiculo=ram-1500-rebel-hemi-cd-5.7-v8-4x4-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/04/1341792-m.jpg?10042026"></div>
-            <div class="card-body">
-                <div class="card-title">Ram 2500 Laramie CD 6.7 TDI 4x4 Diesel</div>
-                <div class="card-details">Ano: 2020/2020 • 93.000 KM</div>
-                <div class="card-price">R$ 319.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGELOI&veiculo=ram-2500-laramie-cd-6.7-tdi-4x4-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354439-m.jpg?29072026115912"></div>
-            <div class="card-body">
-                <div class="card-title">Ram 3500 Laramie CD 6.7 Turbo 4x4 Diesel</div>
-                <div class="card-details">Ano: 2022/2022 • 106.000 KM</div>
-                <div class="card-price">R$ 339.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHIIP&veiculo=ram-3500-laramie-cd-6.7-turbo-4x4-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1353540-m.jpg?23052026"></div>
-            <div class="card-body">
-                <div class="card-title">Ram Classic Laramie Night Edition 5.7 4X4 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2022/2022 • 45.000 KM</div>
-                <div class="card-price">R$ 259.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHGJJG&veiculo=ram-classic-laramie-night-edition-5.7-4x4-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369952-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Rampage Laramie Hurricane 4 CD 2.0 Turbo 4X4 AutomÃ¡tico</div>
-                <div class="card-details">Ano: 2023/2024 • 61.367 KM</div>
-                <div class="card-price">R$ 199.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMNKI&veiculo=rampage-laramie-hurricane-4-cd-2.0-turbo-4x4-automatico" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2025/10/1299788-m.jpg?18062026115604"></div>
-            <div class="card-body">
-                <div class="card-title">Range Rover Velar HSE R-Dyn 2.0 Si4 HÃ­brido</div>
-                <div class="card-details">Ano: 2023/2023 • 36.000 KM</div>
-                <div class="card-price">R$ 399.990,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BDLMLNO&veiculo=range-rover-velar-hse-r-dyn-2.0-si4-hibrido" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1363803-m.jpg?01072026"></div>
-            <div class="card-body">
-                <div class="card-title">RAV4 2.5 SX Connect 4x4 AutomÃ¡tico HÃ­brido</div>
-                <div class="card-details">Ano: 2025/2025 • 19.879 KM</div>
-                <div class="card-price">R$ 296.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIGMFJ&veiculo=rav4-2.5-sx-connect-4x4-automatico-hibrido" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1370694-m.jpg?29072026120151"></div>
-            <div class="card-body">
-                <div class="card-title">S10 LTZ CD 2.8 4x4 TDI AutomÃ¡tico Diesel</div>
-                <div class="card-details">Ano: 2013/2014 • 280.497 KM</div>
-                <div class="card-price">R$ 110.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJDKOK&veiculo=s10-ltz-cd-2.8-4x4-tdi-automatico-diesel" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1366350-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Strada Freedom CD 1.3 Flex</div>
-                <div class="card-details">Ano: 2022/2023 • 146.893 KM</div>
-                <div class="card-price">R$ 101.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIJHKG&veiculo=strada-freedom-cd-1.3-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/04/1346527-m.jpg?30042026153221"></div>
-            <div class="card-body">
-                <div class="card-title">Strada Freedom CD 1.3 Flex</div>
-                <div class="card-details">Ano: 2023/2024 • 85.000 KM</div>
-                <div class="card-price">R$ 102.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGJJHN&veiculo=strada-freedom-cd-1.3-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1369239-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Taos Highline 250 TSI 1.4 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2021/2022 • 66.000 KM</div>
-                <div class="card-price">R$ 129.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIMGIP&veiculo=taos-highline-250-tsi-1.4-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1371806-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Tera Highline 1.0 170 TSI 12V AutomÃ¡tico Flex 5P</div>
-                <div class="card-details">Ano: 2025/2026 • 9.591 KM</div>
-                <div class="card-price">R$ 132.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEJEMFM&veiculo=tera-highline-1.0-170-tsi-12v-automatico-flex-5p" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1349949-m.jpg?18062026115359"></div>
-            <div class="card-body">
-                <div class="card-title">Toro Freedom 1.8 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2018/2019 • 109.516 KM</div>
-                <div class="card-price">R$ 89.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGMNJP&veiculo=toro-freedom-1.8-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1365003-m.jpg?0"></div>
-            <div class="card-body">
-                <div class="card-title">Tracker Premier 1.2 Turbo AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2020/2021 • 60.000 KM</div>
-                <div class="card-price">R$ 99.990,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIIEFJ&veiculo=tracker-premier-1.2-turbo-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354511-m.jpg?16062026133711"></div>
-            <div class="card-body">
-                <div class="card-title">Versa Advance 1.6 AutomÃ¡tico Flex</div>
-                <div class="card-details">Ano: 2021/2022 • 21.923 KM</div>
-                <div class="card-price">R$ 89.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHJGH&veiculo=versa-advance-1.6-automatico-flex" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/05/1354522-m.jpg?27052026"></div>
-            <div class="card-body">
-                <div class="card-title">Volvo XC 40 T-4 Momentum 2.0 190CV FWD</div>
-                <div class="card-details">Ano: 2020/2021 • 72.680 KM</div>
-                <div class="card-price">R$ 152.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEHHJHI&veiculo=volvo-xc-40-t-4-momentum-2.0-190cv-fwd" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/04/1343461-m.jpg?27072026171117"></div>
-            <div class="card-body">
-                <div class="card-title">Volvo XC 60 T-8 Ultimate 2.0 AWD HÃ­brido</div>
-                <div class="card-details">Ano: 2023/2024 • 70.000 KM</div>
-                <div class="card-price">R$ 304.900,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEGGILH&veiculo=volvo-xc-60-t-8-ultimate-2.0-awd-hibrido" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-img"><img src="https://www.usadofacil.com.br/fotoscarrosano/2026/07/1363817-m.jpg?01072026"></div>
-            <div class="card-body">
-                <div class="card-title">Volvo XC 90 T-8 R-Design 2.0 HÃ­brido</div>
-                <div class="card-details">Ano: 2022/2022 • 77.233 KM</div>
-                <div class="card-price">R$ 299.000,00</div>
-                <a href="https://www.usadofacil.com.br/V6/detalhes.asp?cod=BEIGMGN&veiculo=volvo-xc-90-t-8-r-design-2.0-hibrido" class="btn-link" target="_blank">Acessar Anúncio</a>
-            </div>
-        </div>
-        
-        </div>
-        <div class="footer">
-            Catálogo atualizado em: 31/07/2026 às 17:35<br>
-            Acesse nossa vitrine completa em: www.usadofacil.com.br/autocarbonmultimarcas
-        </div>
-    </body>
-    </html>
-    
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+</html>

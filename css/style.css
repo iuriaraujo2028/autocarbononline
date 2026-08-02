@@ -1,0 +1,65 @@
+/* ESTILOS AUTOCARBON - Baseado nas cores da logomarca */
+:root {
+    --bg-dark: #111111;
+    --primary-color: #ff9900; /* Laranja AutoCarbon */
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --gray-bg: #f5f5f5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+
+body { background-color: var(--gray-bg); color: var(--text-dark); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* Navbar */
+.navbar { background-color: var(--bg-dark); padding: 15px 0; color: var(--text-light); }
+.top-nav { display: flex; justify-content: space-between; align-items: center; }
+.contact-info a { color: var(--text-light); text-decoration: none; margin-right: 15px; font-weight: bold; }
+.whatsapp-link { color: #25D366 !important; }
+.menu { list-style: none; display: flex; gap: 20px; }
+.menu a { color: var(--text-light); text-decoration: none; text-transform: uppercase; font-size: 14px; font-weight: 600; transition: 0.3s; }
+.menu a:hover { color: var(--primary-color); }
+
+/* Banners e Buscas */
+.search-banner { background-color: #000; padding: 40px 0; text-align: center; color: #fff; background-image: url('../img/banners/banner-01.jpg'); background-size: cover; background-position: center;}
+.search-bar { display: flex; max-width: 600px; margin: 20px auto; }
+.search-bar input { flex: 1; padding: 15px; border: none; outline: none; font-size: 16px; }
+.search-bar button { background-color: var(--primary-color); border: none; padding: 0 25px; color: #111; font-weight: bold; cursor: pointer; font-size: 18px; }
+
+/* Busca por Carroceria */
+.body-type-search { background-color: #fff; padding: 20px 0; border-bottom: 2px solid #ddd; }
+.body-type-search .container { display: flex; align-items: center; }
+.search-label { font-size: 18px; font-weight: bold; margin-right: 30px; }
+.body-icons { display: flex; gap: 30px; flex: 1; justify-content: space-between;}
+.body-icons a { text-align: center; text-decoration: none; color: #666; transition: 0.2s;}
+.body-icons a:hover { color: var(--primary-color); transform: translateY(-3px); }
+.body-icons img { width: 80px; height: 56px; object-fit: contain; margin-bottom: 5px; filter: grayscale(100%); opacity: 0.7;}
+.body-icons a:hover img { filter: grayscale(0%); opacity: 1; }
+.body-icons span { display: block; font-size: 12px; font-weight: bold; }
+
+/* Filtros Avançados */
+.advanced-filters { padding: 50px 0; text-align: center; background: #fff; }
+.section-title { font-size: 28px; margin-bottom: 30px; }
+.tabs { display: flex; justify-content: center; border-bottom: 2px solid #eee; margin-bottom: 20px; }
+.tab-btn { background: none; border: none; padding: 15px 30px; font-size: 16px; cursor: pointer; border-bottom: 3px solid transparent; font-weight: bold; color: #666;}
+.tab-btn.active { border-bottom-color: var(--primary-color); color: var(--bg-dark); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-content select, .tab-content input { padding: 12px; margin: 0 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; min-width: 200px;}
+.btn-primary { background-color: var(--primary-color); color: #111; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 4px; text-decoration: none; display: inline-block;}
+.btn-primary:hover { background-color: #e68a00; }
+
+/* Vitrine */
+.showcase { padding: 50px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 25px; }
+.card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+.card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card-content { padding: 15px; }
+.card-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #111;}
+.card-price { font-size: 22px; font-weight: 900; color: #16a34a; margin: 10px 0; }
+.card-details { font-size: 13px; color: #666; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between;}
+.tag-categoria { background: var(--bg-dark); color: var(--primary-color); font-size: 11px; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;}
+
+footer { background: var(--bg-dark); color: #666; text-align: center; padding: 30px 0; margin-top: 40px; }
