@@ -6,15 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarSimulador();
 });
 
-// Função para avançar/voltar o carrossel nas setas
-window.scrollCarousel = function(btn, direction) {
-    // Para não clicar no card
+// Correção: recebendo o 'event' explicitamente
+window.scrollCarousel = function(event, btn, direction) {
     event.preventDefault(); 
     event.stopPropagation();
     
     const track = btn.parentElement.querySelector('.carousel-track');
-    const scrollAmount = track.clientWidth;
-    track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    if(track) {
+        const scrollAmount = track.clientWidth;
+        track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
 };
 
 function carregarEstoque() {
@@ -27,7 +28,7 @@ function carregarEstoque() {
             configurarEventosDosFiltros();      
         })
         .catch(error => {
-            document.getElementById('vitrine-carros').innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Erro ao carregar o estoque. Rode o update.py primeiro.</p>';
+            document.getElementById('vitrine-carros').innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Erro ao carregar o estoque.</p>';
         });
 }
 
@@ -36,31 +37,30 @@ function renderizarVitrine(listaVeiculos) {
     vitrine.innerHTML = ''; 
     
     if (listaVeiculos.length === 0) {
-        vitrine.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; color: #475569; font-size: 1.1rem; padding: 40px;">Nenhum veículo encontrado com os filtros selecionados.</p>';
+        vitrine.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1;">Nenhum veículo encontrado.</p>';
         return;
     }
 
     listaVeiculos.forEach(carro => {
         const textoConsultor = encodeURIComponent(`Olá! Quero falar com um consultor sobre o veículo *${carro.nome}*.
 
-Aqui está o link do anúncio: ${carro.link}`);
+Link do anúncio: ${carro.link}`);
         const linkWhatsAppDireto = `https://wa.me/5565999494847?text=${textoConsultor}`;
 
-        // LÓGICA DO CARROSSEL DE FOTOS
         let fotosHtml = '';
         if (carro.fotos && carro.fotos.length > 1) {
-            let trackHtml = carro.fotos.map(f => `<img src="${f}" loading="lazy" alt="Foto do veículo">`).join('');
+            let trackHtml = carro.fotos.map(f => `<img src="${f}" loading="lazy" alt="Foto">`).join('');
+            // Adicionado 'event' na chamada onclick
             fotosHtml = `
                 <div class="carousel-container">
-                    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                    <button class="carousel-btn prev" onclick="scrollCarousel(event, this, -1)">&#10094;</button>
                     <div class="carousel-track">
                         ${trackHtml}
                     </div>
-                    <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">&#10095;</button>
+                    <button class="carousel-btn next" onclick="scrollCarousel(event, this, 1)">&#10095;</button>
                 </div>
             `;
         } else {
-            // Fallback se tiver apenas 1 foto
             let singleFoto = (carro.fotos && carro.fotos.length > 0) ? carro.fotos[0] : carro.foto;
             fotosHtml = `
                 <div class="carousel-container" style="display:block;">
@@ -100,36 +100,22 @@ Aqui está o link do anúncio: ${carro.link}`);
 function popularDropdownsDeFiltro(veiculos) {
     const marcas = new Set();
     const anos = new Set();
-
     veiculos.forEach(v => {
-        const marca = v.nome.split(' ')[0].toUpperCase();
-        marcas.add(marca);
+        marcas.add(v.nome.split(' ')[0].toUpperCase());
         const matchAno = v.detalhes.match(/\d{4}/g);
         if (matchAno) { anos.add(matchAno[matchAno.length - 1]); }
     });
 
     const selectMarca = document.getElementById('filtro-marca');
-    Array.from(marcas).sort().forEach(marca => {
-        selectMarca.innerHTML += `<option value="${marca}">${marca}</option>`;
-    });
+    Array.from(marcas).sort().forEach(marca => { selectMarca.innerHTML += `<option value="${marca}">${marca}</option>`; });
 
     const selectAno = document.getElementById('filtro-ano');
-    Array.from(anos).sort().reverse().forEach(ano => {
-        selectAno.innerHTML += `<option value="${ano}">${ano}</option>`;
-    });
+    Array.from(anos).sort().reverse().forEach(ano => { selectAno.innerHTML += `<option value="${ano}">${ano}</option>`; });
 }
 
 function configurarEventosDosFiltros() {
-    const inputs = [
-        document.getElementById('filtro-nome'),
-        document.getElementById('filtro-marca'),
-        document.getElementById('filtro-ano'),
-        document.getElementById('filtro-preco-min'),
-        document.getElementById('filtro-preco-max')
-    ];
-
+    const inputs = ['filtro-nome', 'filtro-marca', 'filtro-ano', 'filtro-preco-min', 'filtro-preco-max'].map(id => document.getElementById(id));
     inputs.forEach(input => { input.addEventListener('input', aplicarFiltros); });
-
     document.getElementById('btn-limpar-filtros').addEventListener('click', () => {
         inputs.forEach(i => i.value = ''); 
         renderizarVitrine(estoqueOriginal); 
@@ -144,33 +130,25 @@ function aplicarFiltros() {
     const precoMax = parseFloat(document.getElementById('filtro-preco-max').value) || Infinity;
 
     const filtrados = estoqueOriginal.filter(v => {
-        const nomeLower = v.nome.toLowerCase();
         const marcaCarro = v.nome.split(' ')[0].toUpperCase();
         const matchAno = v.detalhes.match(/\d{4}/g);
         const anoCarro = matchAno ? matchAno[matchAno.length - 1] : "";
-
-        const bateNome = nomeLower.includes(termoNome);
-        const bateMarca = marcaSelecionada === "" || marcaCarro === marcaSelecionada;
-        const bateAno = anoSelecionado === "" || anoCarro === anoSelecionado;
-        const batePreco = v.preco_numerico >= precoMin && v.preco_numerico <= precoMax;
-
-        return bateNome && bateMarca && bateAno && batePreco;
+        
+        return v.nome.toLowerCase().includes(termoNome) &&
+               (marcaSelecionada === "" || marcaCarro === marcaSelecionada) &&
+               (anoSelecionado === "" || anoCarro === anoSelecionado) &&
+               (v.preco_numerico >= precoMin && v.preco_numerico <= precoMax);
     });
-
     renderizarVitrine(filtrados);
 }
 
 function abrirSidebarSimulador(botao) {
-    const veiculoNome = botao.getAttribute('data-veiculo');
-    const veiculoPreco = parseFloat(botao.getAttribute('data-preco'));
-    const veiculoLink = botao.getAttribute('data-link'); 
-
-    document.getElementById('veiculo-selecionado-nome').innerText = veiculoNome;
-    document.getElementById('valor-veiculo').value = veiculoPreco;
+    document.getElementById('veiculo-selecionado-nome').innerText = botao.getAttribute('data-veiculo');
+    document.getElementById('valor-veiculo').value = parseFloat(botao.getAttribute('data-preco'));
     
     const btnWhatsapp = document.getElementById('btn-whatsapp');
     if(btnWhatsapp) {
-        btnWhatsapp.setAttribute('data-link', veiculoLink);
+        btnWhatsapp.setAttribute('data-link', botao.getAttribute('data-link'));
         btnWhatsapp.removeAttribute('data-entrada');
         btnWhatsapp.removeAttribute('data-prazo');
         btnWhatsapp.removeAttribute('data-prestacao');
@@ -178,11 +156,8 @@ function abrirSidebarSimulador(botao) {
 
     document.getElementById('valor-entrada').value = '';
     document.getElementById('resultado-simulacao').style.display = 'none';
-
     document.getElementById('sidebar-simulador').classList.add('open');
     document.getElementById('overlay-simulador').classList.add('active');
-    
-    setTimeout(() => { document.getElementById('valor-entrada').focus(); }, 350);
 }
 
 function fecharSidebarSimulador() {
@@ -218,46 +193,33 @@ function configurarSimulador() {
         const prestacao = principalTotal * ((taxaJuros * base) / (base - 1));
 
         const formatBRL = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
-        const prestacaoFormatada = formatBRL.format(prestacao);
-        const entradaFormatada = formatBRL.format(valorEntrada);
-
-        document.getElementById('res-financiado').innerHTML = `${formatBRL.format(principalTotal)} <br><span style="font-size: 0.8em; color: #64748B; font-weight: normal;">(Inclui ${formatBRL.format(valorIOF)} de IOF)</span>`;
-        document.getElementById('res-parcelas').innerText = `${prazo}x de ${prestacaoFormatada}`;
         
+        document.getElementById('res-financiado').innerHTML = `${formatBRL.format(principalTotal)} <br><span style="font-size: 0.8em; color: #64748B; font-weight: normal;">(Inclui ${formatBRL.format(valorIOF)} de IOF)</span>`;
+        document.getElementById('res-parcelas').innerText = `${prazo}x de ${formatBRL.format(prestacao)}`;
         document.getElementById('resultado-simulacao').style.display = 'block';
 
         if(btnWhatsapp) {
-            btnWhatsapp.setAttribute('data-entrada', entradaFormatada);
+            btnWhatsapp.setAttribute('data-entrada', formatBRL.format(valorEntrada));
             btnWhatsapp.setAttribute('data-prazo', prazo);
-            btnWhatsapp.setAttribute('data-prestacao', prestacaoFormatada);
+            btnWhatsapp.setAttribute('data-prestacao', formatBRL.format(prestacao));
         }
     });
 
     if(btnWhatsapp) {
         btnWhatsapp.addEventListener('click', function() {
             const nome = document.getElementById('veiculo-selecionado-nome').innerText;
-            const link = this.getAttribute('data-link');
             const entrada = this.getAttribute('data-entrada');
-            const prazo = this.getAttribute('data-prazo');
             const prestacao = this.getAttribute('data-prestacao');
+            if (!entrada || !prestacao) { alert("Por favor, clique em 'Calcular Parcela'."); return; }
 
-            if (!entrada || !prestacao) {
-                alert("Por favor, clique em 'Calcular Parcela' antes de enviar a proposta.");
-                return;
-            }
+            const msg = `Olá! Tenho interesse no veículo *${nome}*.
 
-            const numeroTelefone = "5565999494847"; 
-            const textoMensagem = `Olá! Tenho interesse no veículo *${nome}*.
+Simulação:
+- Entrada: ${entrada}
+- Parcelas: ${this.getAttribute('data-prazo')}x de ${prestacao}
 
-Fiz uma simulação no site:
-- *Entrada:* ${entrada}
-- *Parcelas:* ${prazo}x de ${prestacao}
-
-Link do anúncio: ${link}
-
-Podemos conversar sobre essa proposta?`;
-            const textoCodificado = encodeURIComponent(textoMensagem);
-            window.open(`https://wa.me/${numeroTelefone}?text=${textoCodificado}`, '_blank');
+Link: ${this.getAttribute('data-link')}`;
+            window.open(`https://wa.me/5565999494847?text=${encodeURIComponent(msg)}`, '_blank');
         });
     }
 }

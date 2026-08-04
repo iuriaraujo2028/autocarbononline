@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
-import time
 
 URL_CATALOGO = "https://www.usadofacil.com.br/autocarbonmultimarcas"
 BASE_URL = "https://www.usadofacil.com.br"
@@ -32,8 +31,7 @@ def extrair_dados_veiculos():
         return []
 
     cards_desktop = container_grid.find_all('div', class_=lambda c: c and 'tw-hidden' in c and 'md:tw-block' in c)
-    
-    print(f"Encontrados {len(cards_desktop)} veículos. Iniciando extração de galerias (isso pode levar alguns segundos)...")
+    print(f"Encontrados {len(cards_desktop)} veículos. Iniciando extração profunda de galerias...")
 
     for card in cards_desktop:
         try:
@@ -67,27 +65,24 @@ def extrair_dados_veiculos():
             apenas_numeros = re.sub(r'[^\d]', '', preco)
             preco_numerico = int(apenas_numeros[:-2]) if len(apenas_numeros) > 2 else 0
 
-            # --- NOVO: ENTRAR NA PÁGINA DO ANÚNCIO E BUSCAR TODAS AS FOTOS ---
+            # --- BUSCA AGRESSIVA DE FOTOS ---
             fotos_galeria = [foto_alta_def] if foto_alta_def != "img/sem-foto.jpg" else []
             try:
                 det_resp = requests.get(link, headers=headers, timeout=5)
                 if det_resp.status_code == 200:
                     det_soup = BeautifulSoup(det_resp.text, 'html.parser')
-                    for img_det in det_soup.find_all('img'):
-                        src = img_det.get('src') or img_det.get('data-src') or ''
-                        if 'fotoscarrosano' in src:
-                            f_url = BASE_URL + src.replace('../', '/') if src.startswith('../') else src
+                    # Busca em IMG e A para pegar LazyLoad e Fancybox
+                    for tag in det_soup.find_all(['img', 'a']):
+                        link_foto = tag.get('src') or tag.get('data-src') or tag.get('data-lazy') or tag.get('href') or ''
+                        if 'fotoscarrosano' in link_foto and ('.jpg' in link_foto.lower() or '.jpeg' in link_foto.lower()):
+                            f_url = BASE_URL + link_foto.replace('../', '/') if link_foto.startswith('../') else link_foto
                             if not f_url.startswith('http'):
                                 f_url = BASE_URL + '/' + f_url.lstrip('/')
                             f_alta = f_url.replace('-m.jpg', '.jpg')
                             if f_alta not in fotos_galeria:
                                 fotos_galeria.append(f_alta)
             except Exception as e:
-                print(f"Aviso: Não foi possível buscar galeria extra para {nome}")
-
-            # Fallback se a galeria falhar
-            if not fotos_galeria:
-                fotos_galeria = ["img/sem-foto.jpg"]
+                pass
 
             veiculos.append({
                 'nome': nome,
@@ -95,8 +90,8 @@ def extrair_dados_veiculos():
                 'preco_numerico': preco_numerico,
                 'detalhes': detalhes,
                 'link': link,
-                'foto': fotos_galeria[0], # Mantém para retrocompatibilidade
-                'fotos': fotos_galeria    # Array completo de fotos
+                'foto': fotos_galeria[0] if fotos_galeria else "img/sem-foto.jpg",
+                'fotos': fotos_galeria
             })
             
         except Exception as e:
@@ -105,17 +100,11 @@ def extrair_dados_veiculos():
     return veiculos
 
 def atualizar_site_json(veiculos):
-    if not veiculos:
-        print("Nenhum veículo para atualizar o site.")
-        return
-        
+    if not veiculos: return
     caminho_arquivo = "veiculos.json"
-    try:
-        with open(caminho_arquivo, 'w', encoding='utf-8') as f:
-            json.dump(veiculos, f, ensure_ascii=False, indent=4)
-        print(f"✅ Site atualizado! Galerias de fotos baixadas com sucesso. Arquivo: {caminho_arquivo}")
-    except Exception as e:
-        print(f"❌ Erro ao gerar JSON do site: {e}")
+    with open(caminho_arquivo, 'w', encoding='utf-8') as f:
+        json.dump(veiculos, f, ensure_ascii=False, indent=4)
+    print(f"✅ Site atualizado! Galerias baixadas. Arquivo: {caminho_arquivo}")
 
 if __name__ == "__main__":
     lista_veiculos = extrair_dados_veiculos()
