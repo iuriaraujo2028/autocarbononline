@@ -6,6 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarSimulador();
 });
 
+// Função para avançar/voltar o carrossel nas setas
+window.scrollCarousel = function(btn, direction) {
+    // Para não clicar no card
+    event.preventDefault(); 
+    event.stopPropagation();
+    
+    const track = btn.parentElement.querySelector('.carousel-track');
+    const scrollAmount = track.clientWidth;
+    track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+};
+
 function carregarEstoque() {
     fetch('veiculos.json')
         .then(response => response.json())
@@ -16,8 +27,7 @@ function carregarEstoque() {
             configurarEventosDosFiltros();      
         })
         .catch(error => {
-            document.getElementById('vitrine-carros').innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Erro ao carregar o estoque. Certifique-se de que o arquivo veiculos.json existe.</p>';
-            console.error('Erro:', error);
+            document.getElementById('vitrine-carros').innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Erro ao carregar o estoque. Rode o update.py primeiro.</p>';
         });
 }
 
@@ -26,7 +36,7 @@ function renderizarVitrine(listaVeiculos) {
     vitrine.innerHTML = ''; 
     
     if (listaVeiculos.length === 0) {
-        vitrine.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; color: #777; font-size: 1.1rem; padding: 40px;">Nenhum veículo encontrado com os filtros selecionados.</p>';
+        vitrine.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; color: #475569; font-size: 1.1rem; padding: 40px;">Nenhum veículo encontrado com os filtros selecionados.</p>';
         return;
     }
 
@@ -36,10 +46,32 @@ function renderizarVitrine(listaVeiculos) {
 Aqui está o link do anúncio: ${carro.link}`);
         const linkWhatsAppDireto = `https://wa.me/5565999494847?text=${textoConsultor}`;
 
+        // LÓGICA DO CARROSSEL DE FOTOS
+        let fotosHtml = '';
+        if (carro.fotos && carro.fotos.length > 1) {
+            let trackHtml = carro.fotos.map(f => `<img src="${f}" loading="lazy" alt="Foto do veículo">`).join('');
+            fotosHtml = `
+                <div class="carousel-container">
+                    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                    <div class="carousel-track">
+                        ${trackHtml}
+                    </div>
+                    <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">&#10095;</button>
+                </div>
+            `;
+        } else {
+            // Fallback se tiver apenas 1 foto
+            let singleFoto = (carro.fotos && carro.fotos.length > 0) ? carro.fotos[0] : carro.foto;
+            fotosHtml = `
+                <div class="carousel-container" style="display:block;">
+                    <img src="${singleFoto}" alt="${carro.nome}" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+            `;
+        }
+
         const card = `
             <article class="car-card">
-                <!-- A classe car-image foi aplicada aqui -->
-                <img src="${carro.foto}" alt="${carro.nome}" class="car-image">
+                ${fotosHtml}
                 <div class="car-details">
                     <h3 class="car-title">${carro.nome}</h3>
                     <p class="car-specs">${carro.detalhes}</p>
@@ -72,11 +104,8 @@ function popularDropdownsDeFiltro(veiculos) {
     veiculos.forEach(v => {
         const marca = v.nome.split(' ')[0].toUpperCase();
         marcas.add(marca);
-
         const matchAno = v.detalhes.match(/\d{4}/g);
-        if (matchAno) {
-            anos.add(matchAno[matchAno.length - 1]);
-        }
+        if (matchAno) { anos.add(matchAno[matchAno.length - 1]); }
     });
 
     const selectMarca = document.getElementById('filtro-marca');
@@ -99,9 +128,7 @@ function configurarEventosDosFiltros() {
         document.getElementById('filtro-preco-max')
     ];
 
-    inputs.forEach(input => {
-        input.addEventListener('input', aplicarFiltros);
-    });
+    inputs.forEach(input => { input.addEventListener('input', aplicarFiltros); });
 
     document.getElementById('btn-limpar-filtros').addEventListener('click', () => {
         inputs.forEach(i => i.value = ''); 
@@ -119,7 +146,6 @@ function aplicarFiltros() {
     const filtrados = estoqueOriginal.filter(v => {
         const nomeLower = v.nome.toLowerCase();
         const marcaCarro = v.nome.split(' ')[0].toUpperCase();
-        
         const matchAno = v.detalhes.match(/\d{4}/g);
         const anoCarro = matchAno ? matchAno[matchAno.length - 1] : "";
 
@@ -230,7 +256,6 @@ Fiz uma simulação no site:
 Link do anúncio: ${link}
 
 Podemos conversar sobre essa proposta?`;
-
             const textoCodificado = encodeURIComponent(textoMensagem);
             window.open(`https://wa.me/${numeroTelefone}?text=${textoCodificado}`, '_blank');
         });

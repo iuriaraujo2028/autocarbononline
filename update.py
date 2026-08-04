@@ -3,10 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
+import time
 
-# ==========================================
-# CONFIGURAÇÕES DA EMPRESA E SCRAPING
-# ==========================================
 URL_CATALOGO = "https://www.usadofacil.com.br/autocarbonmultimarcas"
 BASE_URL = "https://www.usadofacil.com.br"
 URL_ANUNCIO_BASE = "https://www.usadofacil.com.br/V6"
@@ -20,7 +18,7 @@ def extrair_dados_veiculos():
     try:
         response = requests.get(URL_CATALOGO, headers=headers, timeout=10)
         response.raise_for_status()
-        response.encoding = 'utf-8' # Corrigindo problemas de acentuação (UTF-8)
+        response.encoding = 'utf-8' 
     except Exception as e:
         print(f"Erro ao acessar o site: {e}")
         return []
@@ -35,6 +33,8 @@ def extrair_dados_veiculos():
 
     cards_desktop = container_grid.find_all('div', class_=lambda c: c and 'tw-hidden' in c and 'md:tw-block' in c)
     
+    print(f"Encontrados {len(cards_desktop)} veículos. Iniciando extração de galerias (isso pode levar alguns segundos)...")
+
     for card in cards_desktop:
         try:
             link_tag = card.find('a', href=True)
@@ -42,11 +42,9 @@ def extrair_dados_veiculos():
             
             link = URL_ANUNCIO_BASE + '/' + link_tag['href'] if not link_tag['href'].startswith('http') else link_tag['href']
             
-            # --- MELHORIA: FOTOS EM ALTA RESOLUÇÃO ---
             img_tag = link_tag.find('img')
             if img_tag and img_tag.has_attr('src'):
                 foto_miniatura = BASE_URL + img_tag['src'].replace('../', '/')
-                # O Usado Fácil geralmente nomeia miniaturas como "id-m.jpg" e as em alta como "id.jpg"
                 foto_alta_def = foto_miniatura.replace('-m.jpg', '.jpg')
             else:
                 foto_alta_def = "img/sem-foto.jpg"
@@ -69,13 +67,36 @@ def extrair_dados_veiculos():
             apenas_numeros = re.sub(r'[^\d]', '', preco)
             preco_numerico = int(apenas_numeros[:-2]) if len(apenas_numeros) > 2 else 0
 
+            # --- NOVO: ENTRAR NA PÁGINA DO ANÚNCIO E BUSCAR TODAS AS FOTOS ---
+            fotos_galeria = [foto_alta_def] if foto_alta_def != "img/sem-foto.jpg" else []
+            try:
+                det_resp = requests.get(link, headers=headers, timeout=5)
+                if det_resp.status_code == 200:
+                    det_soup = BeautifulSoup(det_resp.text, 'html.parser')
+                    for img_det in det_soup.find_all('img'):
+                        src = img_det.get('src') or img_det.get('data-src') or ''
+                        if 'fotoscarrosano' in src:
+                            f_url = BASE_URL + src.replace('../', '/') if src.startswith('../') else src
+                            if not f_url.startswith('http'):
+                                f_url = BASE_URL + '/' + f_url.lstrip('/')
+                            f_alta = f_url.replace('-m.jpg', '.jpg')
+                            if f_alta not in fotos_galeria:
+                                fotos_galeria.append(f_alta)
+            except Exception as e:
+                print(f"Aviso: Não foi possível buscar galeria extra para {nome}")
+
+            # Fallback se a galeria falhar
+            if not fotos_galeria:
+                fotos_galeria = ["img/sem-foto.jpg"]
+
             veiculos.append({
                 'nome': nome,
                 'preco': preco,
                 'preco_numerico': preco_numerico,
                 'detalhes': detalhes,
                 'link': link,
-                'foto': foto_alta_def # Usando a variável da foto em alta definição
+                'foto': fotos_galeria[0], # Mantém para retrocompatibilidade
+                'fotos': fotos_galeria    # Array completo de fotos
             })
             
         except Exception as e:
@@ -92,7 +113,7 @@ def atualizar_site_json(veiculos):
     try:
         with open(caminho_arquivo, 'w', encoding='utf-8') as f:
             json.dump(veiculos, f, ensure_ascii=False, indent=4)
-        print(f"✅ Site atualizado com fotos em ALTA DEFINIÇÃO! Arquivo gerado: {caminho_arquivo}")
+        print(f"✅ Site atualizado! Galerias de fotos baixadas com sucesso. Arquivo: {caminho_arquivo}")
     except Exception as e:
         print(f"❌ Erro ao gerar JSON do site: {e}")
 
