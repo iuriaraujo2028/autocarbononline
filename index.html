@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- 1. CABEÇALHO -->
+    <!-- CABEÇALHO -->
     <header class="topbar">
         <div class="logo">
             <img src="img/logomarca.png" alt="Auto Carbon Multimarcas">
@@ -22,7 +22,7 @@
         </nav>
     </header>
 
-    <!-- 2. SEÇÃO DE FILTROS -->
+    <!-- SEÇÃO DE FILTROS -->
     <section class="filter-section">
         <h2>USE NOSSO FILTRO DINÂMICO E ENCONTRE SEU VEÍCULO IDEAL</h2>
         
@@ -46,12 +46,12 @@
         </div>
     </section>
 
-    <!-- 3. VITRINE DE CARROS (Se essa tag sumir, os carros não carregam) -->
+    <!-- VITRINE DE CARROS -->
     <main class="catalog-container" id="vitrine-carros">
-        <p style="text-align:center; width:100%; grid-column: 1 / -1;">Carregando estoque atualizado...</p>
+        <p style="text-align:center; width:100%; grid-column: 1 / -1; padding: 40px; font-size: 1.2rem;">Carregando estoque atualizado...</p>
     </main>
 
-    <!-- 4. PAINEL LATERAL DO SIMULADOR (Inicia Oculto) -->
+    <!-- PAINEL LATERAL DO SIMULADOR -->
     <div id="overlay-simulador" class="overlay"></div>
     <aside id="sidebar-simulador" class="sidebar">
         <button id="fechar-simulador" class="btn-fechar">✖</button>
@@ -82,11 +82,11 @@
 
             <input type="hidden" id="taxa-juros" value="1.5"> 
             
-            <button id="btn-calcular" class="btn-acessar w-100">Calcular Parcela</button>
+            <button id="btn-calcular" class="btn-acessar w-100" style="margin-top: 15px;">Calcular Parcela</button>
             
             <div id="resultado-simulacao" class="resultado-box">
                 <p>Valor Financiado: <br><strong id="res-financiado"></strong></p>
-                <p class="mt-1">Parcelas e crédito sujeitos a análise: <br><strong id="res-parcelas" class="parcela-destaque"></strong></p>
+                <p class="mt-1">Parcelas (Crédito sujeito à análise): <br><strong id="res-parcelas" class="parcela-destaque"></strong></p>
                 <button id="btn-whatsapp" class="btn-whatsapp w-100 mt-1">Enviar Proposta pelo WhatsApp</button>
             </div>
         </div>
